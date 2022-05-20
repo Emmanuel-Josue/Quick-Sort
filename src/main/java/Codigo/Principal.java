@@ -33,21 +33,33 @@ public class Principal {
     
     public CListaLigada recursivo(CListaLigada lista, int parametroInicial, int parametroFinal)
     {
-        //El pivote siempre sera el ultimo número de la parte de la coleccion que se 
-        //manejara, los parametros son posiciones.
-        int pivote = lista.getDato(parametroFinal);
-        int compararPivote = parametroInicial;
-        //Empezaremos a comparar con el siguiente número ya que 
-        //no sirve de nada hacer un cambio con el propio número.
-        int posicionCambio;
-        for(int i = parametroInicial + 1; i < parametroFinal; i++)
+        if((parametroInicial+1) != parametroFinal & parametroInicial != parametroFinal)//Esto quiere decir que no son consecutivos y que se analizaran mas de un número en la coleccion o que existen los numeros suficientes para que el algoritmo pueda trabajar 
         {
-            posicionCambio = i;
-            if(lista.getDato(posicionCambio) < pivote)
+            //El pivote siempre sera el ultimo número de la parte de la coleccion que se 
+            //manejara, los parametros son posiciones.
+            int pivote = lista.getDato(parametroFinal);
+            // compararPivote es la variable que ira avanzando como el iterador 
+            int compararPivote;
+            //´posicionCambio será la que se cambiara solo si la condicional se cumple
+            int posicionCambio = parametroInicial;
+            for(int i = parametroInicial + 1; i < parametroFinal; i++)
             {
-                this.intercambio(lista.obtenerPorIndice(compararPivote), lista.obtenerPorIndice(posicionCambio));
-                compararPivote = posicionCambio;
+                compararPivote = i;
+                if(lista.getDato(compararPivote) < pivote)
+                {
+                    this.intercambio(lista.obtenerPorIndice(posicionCambio), lista.obtenerPorIndice(compararPivote));
+                    posicionCambio = compararPivote;
+                }
             }
+        }
+        //ambos casos estaran basados en la sentencia de arriba
+        if(true)
+        {
+            //Primer caso base 
+        }
+        if(true)
+        {
+            //segundo caso base 
         }
         
         return lista;
