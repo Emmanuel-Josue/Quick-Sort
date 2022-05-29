@@ -4,17 +4,10 @@
  */
 package Codigo;
 
-/**
- *
- * @author user01
- */
+// La solución que brinda el video. 
 public class SolucionVideo {
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
     }
     
 }
