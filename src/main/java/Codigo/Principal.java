@@ -13,6 +13,7 @@ public class Principal {
     public static void main(String[] args) {
 
         CListaLigada miLista = new CListaLigada();
+        Principal objeto = new Principal();
         
         miLista.adicionar(9);
         miLista.adicionar(8);
@@ -26,43 +27,42 @@ public class Principal {
         
         miLista.transversa();
         
+        objeto.quickSort(miLista, 0, miLista.cantidadDeElementos()-1);
+        
+        miLista.transversa();
+        
         
         
         
     }
     
-    public CListaLigada recursivo(CListaLigada lista, int parametroInicial, int parametroFinal)
+    //ParametroFinal será la ultima posición. 
+    public int particion(CListaLigada lista, int parametroInicial, int parametroFinal)
     {
-        if((parametroInicial+1) != parametroFinal & parametroInicial != parametroFinal)//Esto quiere decir que no son consecutivos y que se analizaran mas de un número en la coleccion o que existen los numeros suficientes para que el algoritmo pueda trabajar 
+      //  System.out.println("-----------------------particion()-------------------------");
+        int indicePivote = parametroInicial;
+        int recorriendoIndice;
+        int pivote = lista.getDato(parametroFinal);
+      //  System.out.println("El pivote vale: "+pivote);
+       // System.out.println("El indicePivote: "+indicePivote);
+        for(int i = parametroInicial; i < parametroFinal+1; i++)
         {
-            //El pivote siempre sera el ultimo número de la parte de la coleccion que se 
-            //manejara, los parametros son posiciones.
-            int pivote = lista.getDato(parametroFinal);
-            // compararPivote es la variable que ira avanzando como el iterador 
-            int compararPivote;
-            //´posicionCambio será la que se cambiara solo si la condicional se cumple
-            int posicionCambio = parametroInicial;
-            for(int i = parametroInicial + 1; i < parametroFinal; i++)
+            recorriendoIndice = i;
+          //  System.out.println("indicePivote dentro de for y antes del if: "+indicePivote);
+            if(lista.getDato(recorriendoIndice) < pivote)
             {
-                compararPivote = i;
-                if(lista.getDato(compararPivote) < pivote)
-                {
-                    this.intercambio(lista.obtenerPorIndice(posicionCambio), lista.obtenerPorIndice(compararPivote));
-                    posicionCambio = compararPivote;
-                }
+                this.intercambio(lista.obtenerPorIndice(indicePivote),lista.obtenerPorIndice(recorriendoIndice));
+                indicePivote = ++indicePivote;
+           //     System.out.println("El IndicePivote adentro del if vale: "+indicePivote);
             }
         }
-        //ambos casos estaran basados en la sentencia de arriba
-        if(true)
-        {
-            //Primer caso base 
-        }
-        if(true)
-        {
-            //segundo caso base 
-        }
         
-        return lista;
+        //Este intercambio es el que necesito analizar, entender bien 
+        this.intercambio(lista.obtenerPorIndice(indicePivote),lista.obtenerPorIndice(parametroFinal));
+      //  System.out.println("----------------------------se devuelve el indice--------------------");
+      lista.transversa();
+        return indicePivote;
+        
     }
     
     public void intercambio(CNodo nodoTrasero, CNodo nodoDelantero)
@@ -71,6 +71,28 @@ public class Principal {
         buffer = nodoDelantero.getDato();
         nodoDelantero.setDato(nodoTrasero.getDato());
         nodoTrasero.setDato(buffer);
+    }
+    
+    public CListaLigada quickSort(CListaLigada lista, int parametroInicial, int parametroFinal)
+    {
+        System.out.println("------------------quickSort()---------------------");
+        int posicionNumeroAcomodado;
+        System.out.println("Parametrinicial: "+parametroInicial+"  ParametroFinal: "+parametroFinal);
+        if(parametroInicial < parametroFinal)
+        {
+            System.out.println("Entra el if");
+            posicionNumeroAcomodado = this.particion(lista, parametroInicial, parametroFinal);
+            
+            this.quickSort(lista, parametroInicial,posicionNumeroAcomodado-1);
+            this.quickSort(lista, posicionNumeroAcomodado+1, parametroFinal);
+        }
+        else
+        {
+            System.out.println("Entra el else");
+            lista = lista;
+        }
+        System.out.println("---------------------------se devolvera la lista-----------------------------");
+        return lista;
     }
     
 }
